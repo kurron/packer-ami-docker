@@ -7,7 +7,6 @@
         "ami_name": "{{ user `ami_name` }}-{{timestamp}}",
         "instance_type": "{{ user `instance_type` }}",
         "region": "{{ user `region` }}",
-        "source_ami": "{{ user `source_ami` }}",
         "ami_description": "{{ user `ami_description` }}",
         "ami_groups": ["all"],
         "ami_product_codes": [],
@@ -54,10 +53,10 @@
         "source_ami_filter": {
             "filters": {
                 "virtualization-type": "hvm",
-                "name": "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*",
+                "name": "{{ user `source_ami_expression` }}",
                 "root-device-type": "ebs"
             },
-            "owners": ["099720109477"],
+            "owners": "{{ user `source_ami_owners` }}",
             "most_recent": true
         },
         "run_tags": {

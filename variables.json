@@ -12,8 +12,9 @@
     "purpose": "Just testing out AMI creation.",
     "project": "Debug",
     "region": "us-east-1",
-    "root_partition_size_gb": "16",
-    "source_ami": "ami-66506c1c",
+    "root_partition_size_gb": "8",
+    "source_ami_owners": "099720109477",
+    "source_ami_expression": "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*",
     "ssh_keypair_name": "",
     "ssh_username": "ubuntu",
     "subnet_id": "subnet-9ebe65d5"
