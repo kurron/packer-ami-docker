@@ -1,6 +1,7 @@
 {
     "ami_description": "AMI with Docker pre-installed",
     "ami_name": "docker",
+    "ami_regions": "us-east-1",
     "creator": "kurr@jvmguy.com",
     "docker_partition_size_gb": "8",
     "environment": "debug",
@@ -11,9 +12,9 @@
     "purpose": "Just testing out AMI creation.",
     "project": "Debug",
     "region": "us-east-1",
-    "root_partition_size_gb": "8",
+    "root_partition_size_gb": "16",
     "source_ami": "ami-66506c1c",
     "ssh_keypair_name": "",
     "ssh_username": "ubuntu",
-    "subnet_id": "subnet-5debc151"
+    "subnet_id": "subnet-9ebe65d5"
 }
