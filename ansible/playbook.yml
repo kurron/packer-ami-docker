@@ -1,0 +1,8 @@
+---
+- name: Bootstrap Docker
+  hosts: all
+  become: true
+  gather_facts: false
+  pre_tasks:
+    - name: Install Legacy Python
+      raw: apt-get --assume-yes install software-properties-common python

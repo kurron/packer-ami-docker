@@ -1,0 +1,123 @@
+{
+    "description": "Builds an Ubuntu 16.04 (Xenial Xerus) server x64 AMI with Docker pre-installed",
+    "min_packer_version": "1.2.1",
+
+    "builders": [{
+        "type": "amazon-ebs",
+        "ami_name": "{{ user `ami_name` }}-{{timestamp}}",
+        "instance_type": "{{ user `instance_type` }}",
+        "region": "{{ user `region` }}",
+        "source_ami": "{{ user `source_ami` }}",
+        "ami_description": "{{ user `ami_description` }}",
+        "ami_groups": ["all"],
+        "ami_product_codes": [],
+        "ami_regions": ["us-east-1", "us-east-2", "us-west-1", "us-west-2"],
+        "ami_users": [],
+        "ami_virtualization_type": "hvm",
+        "associate_public_ip_address": true,
+        "availability_zone": "",
+        "custom_endpoint_ec2": "",
+        "disable_stop_instance": false,
+        "ebs_optimized": false,
+        "ena_support": false,
+        "force_deregister": false,
+        "force_delete_snapshot": true,
+        "encrypt_boot": false,
+        "kms_key_id": "",
+        "iam_instance_profile": "{{ user `iam_instance_profile` }}",
+        "mfa_code": "",
+        "profile": "",
+        "region_kms_key_ids": {},
+        "security_group_id": "",
+        "temporary_security_group_source_cidr": "0.0.0.0/0",
+        "shutdown_behavior": "terminate",
+        "skip_metadata_api_check": false,
+        "skip_region_validation": false,
+        "snapshot_groups": [],
+        "snapshot_users": [],
+        "spot_price": "auto",
+        "spot_price_auto_product": "Linux/UNIX (Amazon VPC)",
+        "sriov_support": false,
+        "ssh_keypair_name": "{{ user `ssh_keypair_name` }}",
+        "ssh_agent_auth": false,
+        "ssh_interface": "public_ip",
+        "subnet_id": "{{ user `subnet_id` }}",
+        "temporary_key_pair_name": "",
+        "token": "",
+        "user_data": "",
+        "vpc_id": "{{ user `vpc_id` }}",
+
+        "ssh_port": 22,
+        "ssh_username": "{{ user `ssh_username` }}",
+        "ssh_timeout": "5m",
+
+        "source_ami_filter": {
+            "filters": {
+                "virtualization-type": "hvm",
+                "name": "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*",
+                "root-device-type": "ebs"
+            },
+            "owners": ["099720109477"],
+            "most_recent": true
+        },
+        "run_tags": {
+          "Name": "{{ user `name` }}",
+          "Purpose": "{{ user `purpose` }}",
+          "Project": "{{ user `project` }}",
+          "Creator": "{{ user `creator` }}",
+          "Environment": "{{ user `environment` }}",
+          "Freetext": "{{ user `notes` }}"
+        },
+        "run_volume_tags": {
+          "Name": "{{ user `name` }}",
+          "Purpose": "{{ user `purpose` }}",
+          "Project": "{{ user `project` }}",
+          "Creator": "{{ user `creator` }}",
+          "Environment": "{{ user `environment` }}",
+          "Freetext": "{{ user `notes` }}"
+        },
+        "snapshot_tags": {
+          "Name": "{{ user `name` }}",
+          "Purpose": "{{ user `purpose` }}",
+          "Project": "{{ user `project` }}",
+          "Creator": "{{ user `creator` }}",
+          "Environment": "{{ user `environment` }}",
+          "Freetext": "{{ user `notes` }}"
+        },
+        "tags": {
+          "Name": "{{ user `name` }}",
+          "Purpose": "{{ user `purpose` }}",
+          "Project": "{{ user `project` }}",
+          "Creator": "{{ user `creator` }}",
+          "Environment": "{{ user `environment` }}",
+          "Freetext": "{{ user `notes` }}"
+        },
+        "ami_block_device_mappings": [
+            {
+                "device_name": "/dev/xvdf",
+                "delete_on_termination": true,
+                "encrypted": false,
+                "volume_size": "{{ user `docker_partition_size_gb` }}",
+                "volume_type": "gp2"
+            }
+        ],
+        "launch_block_device_mappings": [
+            {
+                "device_name": "/dev/xvda",
+                "delete_on_termination": true,
+                "encrypted": false,
+                "volume_size": "{{ user `root_partition_size_gb` }}",
+                "volume_type": "gp2"
+            }
+        ]
+    }],
+    "provisioners": [
+        {
+            "extra_arguments" : ["--verbose"],
+            "playbook_file"   : "ansible/playbook.yml",
+            "type"            : "ansible"
+        }
+    ],
+    "post-processors": [
+    ]
+}

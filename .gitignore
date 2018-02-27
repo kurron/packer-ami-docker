@@ -1,4 +1,1 @@
-.gradle
-build/
-*.swp
-.vagrant
+*.retry
