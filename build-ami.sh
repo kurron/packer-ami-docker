@@ -5,4 +5,4 @@ export PACKER_LOG=activate
 
 packer validate -var-file=variables.json ami.json
 ansible-galaxy install --verbose --role-file ansible/requirements.yml
-#packer build -var-file=variables.json ami.json
+packer build -var-file=variables.json ami.json

@@ -1,8 +1,13 @@
 ---
-- name: Bootstrap Docker
-  hosts: all
+- name: Bootstrap Ansible
+  hosts: default
   become: true
   gather_facts: false
   pre_tasks:
     - name: Install Legacy Python
       raw: apt-get --assume-yes install software-properties-common python
+
+- name: Install DOCKER
+  hosts: default
+  roles:
+      - { role: kurron.block-device, bd_block_device: /dev/xvdf, bd_mount_point: /var/lib/docker, bd_label: DOCKER }

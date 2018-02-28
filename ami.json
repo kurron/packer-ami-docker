@@ -29,7 +29,7 @@
         "region_kms_key_ids": {},
         "security_group_id": "",
         "temporary_security_group_source_cidr": "0.0.0.0/0",
-        "shutdown_behavior": "terminate",
+        "shutdown_behavior": "stop",
         "skip_metadata_api_check": false,
         "skip_region_validation": false,
         "snapshot_groups": [],
@@ -91,15 +91,7 @@
           "Environment": "{{ user `environment` }}",
           "Freetext": "{{ user `notes` }}"
         },
-        "ami_block_device_mappings": [
-            {
-                "device_name": "/dev/xvdf",
-                "delete_on_termination": true,
-                "encrypted": false,
-                "volume_size": "{{ user `docker_partition_size_gb` }}",
-                "volume_type": "gp2"
-            }
-        ],
+        "ami_block_device_mappings": [],
         "launch_block_device_mappings": [
             {
                 "device_name": "/dev/sda1",
@@ -107,14 +99,27 @@
                 "encrypted": false,
                 "volume_size": "{{ user `root_partition_size_gb` }}",
                 "volume_type": "gp2"
+            },
+            {
+                "device_name": "/dev/xvdf",
+                "delete_on_termination": true,
+                "encrypted": false,
+                "volume_size": "{{ user `docker_partition_size_gb` }}",
+                "volume_type": "gp2"
             }
         ]
     }],
     "provisioners": [
         {
-            "extra_arguments" : ["--verbose"],
-            "playbook_file"   : "ansible/playbook.yml",
-            "type"            : "ansible"
+          "type"                  : "ansible",
+            "playbook_file"       : "ansible/playbook.yml",
+            "ansible_env_vars"    : [],
+            "command"             : "ansible-playbook",
+            "empty_groups"        : [],
+            "extra_arguments"     : [],
+            "groups"              : [],
+            "host_alias"          : "default",
+            "inventory_directory" : "/tmp"
         }
     ],
     "post-processors": [

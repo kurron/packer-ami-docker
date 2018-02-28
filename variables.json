@@ -6,7 +6,7 @@
     "docker_partition_size_gb": "8",
     "environment": "debug",
     "iam_instance_profile": "",
-    "instance_type": "t2.micro",
+    "instance_type": "t2.small",
     "name": "Docker Host",
     "notes": "No notes at this time.",
     "purpose": "Just testing out AMI creation.",
